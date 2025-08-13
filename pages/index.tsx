@@ -298,8 +298,8 @@ export default function DeliveryTrack() {
                   </div>
                   <div className="text-sm text-power-700 font-semibold">Hors ligne</div>
                 </div>
+                </div>
               </div>
-            </div>
             
             <DriversList drivers={drivers} />
           </div>
