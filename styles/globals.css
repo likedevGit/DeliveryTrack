@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  }
+  
+  body {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  .btn-speed {
+    @apply bg-gradient-to-r from-speed-500 to-energy-500 text-white px-6 py-3 rounded-lg font-semibold 
+           hover:from-speed-600 hover:to-energy-600 transform hover:scale-105 transition-all duration-200 
+           shadow-lg hover:shadow-xl active:scale-95;
+  }
+  
+  .btn-energy {
+    @apply bg-gradient-to-r from-energy-500 to-yellow-400 text-white px-4 py-2 rounded-lg font-medium
+           hover:from-energy-600 hover:to-yellow-500 transform hover:scale-105 transition-all duration-200
+           shadow-md hover:shadow-lg active:scale-95;
+  }
+  
+  .card-speed {
+    @apply bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-white/20 
+           hover:shadow-2xl hover:scale-105 transition-all duration-300
+           hover:border-energy-200/50;
+  }
+  
+  .card-energy {
+    @apply bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-sm rounded-xl 
+           shadow-lg border border-energy-200/30 hover:shadow-xl 
+           hover:border-energy-300/50 transition-all duration-300;
+  }
+  
+  .stat-card {
+    @apply bg-gradient-to-br from-white/95 to-white/85 backdrop-blur-sm rounded-xl p-6 
+           shadow-lg border border-white/20 hover:shadow-xl hover:scale-105 
+           transition-all duration-300 transform;
+  }
+  
+  .speed-gradient {
+    @apply bg-gradient-to-r from-speed-500 via-energy-500 to-yellow-400;
+  }
+  
+  .energy-gradient {
+    @apply bg-gradient-to-r from-energy-500 to-yellow-400;
+  }
+  
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes pulse-glow {
+  from {
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+  }
+  to {
+    box-shadow: 0 0 30px rgba(249, 115, 22, 0.6);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.5s ease-out;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out;
+}
