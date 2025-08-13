@@ -1,18 +1,16 @@
-version: '3.8'
-
 services:
   deliverytrack:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "8080:3000"
     environment:
       - NODE_ENV=production
       - NEXT_TELEMETRY_DISABLED=1
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -20,23 +18,6 @@ services:
     networks:
       - deliverytrack-network
 
-  # Service de base de données optionnel pour le futur
-  # postgres:
-  #   image: postgres:15-alpine
-  #   environment:
-  #     POSTGRES_DB: deliverytrack
-  #     POSTGRES_USER: deliverytrack
-  #     POSTGRES_PASSWORD: deliverytrack
-  #   volumes:
-  #     - postgres_data:/var/lib/postgresql/data
-  #   ports:
-  #     - "5432:5432"
-  #   networks:
-  #     - deliverytrack-network
-
 networks:
   deliverytrack-network:
     driver: bridge
-
-# volumes:
-#   postgres_data:
