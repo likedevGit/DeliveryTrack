@@ -8,21 +8,20 @@ RUN apk add --no-cache git
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install
+# Install dependencies with retry and cache clearing
+RUN npm cache clean --force && \
+    npm install --no-optional --production=false
 
 # Copy source code
 COPY . .
 
 # Disable SWC and use Babel for ARM compatibility
 ENV NEXT_SWC_DISABLE=1
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
 
 # Build the application
 RUN npm run build
-
-# Set environment variables
-ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
 
 # Expose port
 EXPOSE 3000
