@@ -1,5 +1,4 @@
-version: '3.8'
-
+# Docker Compose pour Production - Docker Swarm
 services:
   deliverytrack:
     image: ${CI_REGISTRY_IMAGE:-deliverytrack}:latest
