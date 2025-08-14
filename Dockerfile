@@ -14,6 +14,9 @@ RUN npm install
 # Copy source code
 COPY . .
 
+# Disable SWC and use Babel for ARM compatibility
+ENV NEXT_SWC_DISABLE=1
+
 # Build the application
 RUN npm run build
 

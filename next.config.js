@@ -1,18 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Disable SWC for ARM compatibility
+  swcMinify: false,
+  
+  // Experimental features
   experimental: {
-    outputStandalone: true,
+    // Disable SWC compiler
+    forceSwcTransforms: false,
   },
+  
+  // Output configuration
   output: 'standalone',
-  images: {
-    unoptimized: true,
-  },
-  typescript: {
-    ignoreBuildErrors: false,
-  },
-  eslint: {
-    ignoreDuringBuilds: false,
-  },
+  
+  // Disable telemetry
+  telemetry: false,
 }
 
 module.exports = nextConfig
