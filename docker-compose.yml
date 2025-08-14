@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   deliverytrack:
     image: ghcr.io/likedevgit/deliverytrack:feature-ci-cd-docker-fixes

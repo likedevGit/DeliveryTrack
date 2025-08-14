@@ -1,10 +1,10 @@
 # Build stage
-FROM node:18-alpine AS builder
+FROM node:20-bullseye-slim AS builder
 
 WORKDIR /app
 
-# Install dependencies for build
-RUN apk add --no-cache git
+# Install build dependencies
+RUN apt-get update && apt-get install -y git wget
 
 # Copy package files
 COPY package*.json ./
@@ -15,35 +15,29 @@ RUN npm install
 # Copy source code
 COPY . .
 
-# Disable SWC and use Babel for ARM compatibility
-ENV NEXT_SWC_DISABLE=1
-
 # Build the application
 RUN npm run build
 
 # Production stage
-FROM node:18-alpine AS runner
+FROM node:20-bullseye-slim AS runner
 
 WORKDIR /app
 
-# Install wget for healthcheck
-RUN apk add --no-cache wget
-
-# Set environment variables
-ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
-
 # Create non-root user
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+RUN groupadd --system --gid 1001 nodejs
+RUN useradd --system --uid 1001 nextjs
+
+# Install runtime dependencies
+RUN apt-get update && apt-get install -y wget
 
 # Copy built application
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 
-# Set ownership
+# Set correct permissions
 RUN chown -R nextjs:nodejs /app
+
 USER nextjs
 
 # Expose port
