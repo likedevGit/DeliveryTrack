@@ -1,6 +1,9 @@
 services:
   deliverytrack:
-    image: ghcr.io/likedevGit/DeliveryTrack:feature-ci-cd-docker-fixes
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: deliverytrack:latest
     container_name: deliverytrack
     ports:
       - "8080:3000"
