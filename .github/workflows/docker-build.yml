@@ -2,7 +2,7 @@ name: Build and Push Docker Image
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main, develop, feature/ci-cd-docker-fixes ]
     tags: [ 'v*' ]
   pull_request:
     branches: [ main ]
