@@ -1,4 +1,4 @@
-import { DeliveryStats } from '../../types'
+import type { DeliveryStats as DeliveryStatsType } from '../../types'
 import { Package, Truck, Clock, CheckCircle, AlertTriangle, TrendingUp, Zap, Rocket } from 'lucide-react'
 
 interface StatsCardProps {
@@ -26,7 +26,7 @@ const StatsCard = ({ title, value, icon, color, subtitle, gradient }: StatsCardP
 )
 
 interface DeliveryStatsProps {
-  stats: DeliveryStats
+  stats: DeliveryStatsType
 }
 
 export default function DeliveryStats({ stats }: DeliveryStatsProps) {
