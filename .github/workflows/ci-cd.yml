@@ -2,7 +2,7 @@ name: Build and Push Docker Image
 
 on:
   push:
-    branches: [ main, develop, feature/ci-cd-docker-fixes ]
+    branches: [ main, develop, feature/ci-cd-docker-fixes, feature/docker-compose-ghcr ]
     tags: [ 'v*' ]
   workflow_dispatch:
 
