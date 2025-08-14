@@ -2,9 +2,7 @@ version: '3.8'
 
 services:
   deliverytrack:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ghcr.io/likedevgit/deliverytrack:feature-ci-cd-docker-fixes
     ports:
       - "3000:3000"
     environment:
@@ -12,7 +10,7 @@ services:
       - NEXT_TELEMETRY_DISABLED=1
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
       interval: 30s
       timeout: 10s
       retries: 3

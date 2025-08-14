@@ -3,14 +3,20 @@ FROM node:18-alpine AS builder
 
 WORKDIR /app
 
+# Install dependencies for build
+RUN apk add --no-cache git
+
 # Copy package files
 COPY package*.json ./
 
 # Install dependencies
-RUN npm ci --only=production
+RUN npm install
 
 # Copy source code
 COPY . .
+
+# Disable SWC and use Babel for ARM compatibility
+ENV NEXT_SWC_DISABLE=1
 
 # Build the application
 RUN npm run build
@@ -19,6 +25,9 @@ RUN npm run build
 FROM node:18-alpine AS runner
 
 WORKDIR /app
+
+# Install wget for healthcheck
+RUN apk add --no-cache wget
 
 # Set environment variables
 ENV NODE_ENV=production
@@ -42,7 +51,7 @@ EXPOSE 3000
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:3000/api/health || exit 1
+  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/api/health || exit 1
 
 # Start the application
 CMD ["node", "server.js"]
